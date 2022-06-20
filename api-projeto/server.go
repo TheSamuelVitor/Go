@@ -100,7 +100,7 @@ func getTaskbyId(c*gin.Context){
 
 	for _,a := range tasks{
 		if a.Id_task == id {
-			c.IndentedJSON(http.StatusOK, tasks)
+			c.IndentedJSON(http.StatusOK, a)
 			return
 		}
 	}
@@ -132,7 +132,7 @@ func getProjectbyId(c*gin.Context){
 
 	for _,a := range projects{
 		if a.Id_project == id{
-			c.IndentedJSON(http.StatusOK, projects)
+			c.IndentedJSON(http.StatusOK, a)
 			return
 		}
 	}
