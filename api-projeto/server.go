@@ -76,6 +76,18 @@ func getmembersbyId(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "member not found"})
 }
 
+func deleteMembersbyId(c *gin.Context)  {
+	id:=c.Param("id")
+	for i, a:= range members{
+		if a.Id_member == id{
+			members = append(members[:i], members[i+1:]...)
+			c.IndentedJSON(http.StatusOK, members)
+			return
+		}
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "member not found"})
+	}
+}
+
 // ---------------------------
 // 		FUNCOES TASKS
 // ---------------------------
@@ -95,10 +107,9 @@ func postTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newTask)
 }
 
-func getTaskbyId(c*gin.Context){
-	id:= c.Param("id")
-
-	for _,a := range tasks{
+func getTaskbyId(c *gin.Context) {
+	id := c.Param("id")
+	for _, a := range tasks {
 		if a.Id_task == id {
 			c.IndentedJSON(http.StatusOK, a)
 			return
@@ -107,6 +118,19 @@ func getTaskbyId(c*gin.Context){
 	c.IndentedJSON(http.StatusNotFound, gin.H{
 		"message": "task not found",
 	})
+}
+
+func deleteTaskbyId(c *gin.Context)  {
+	id:=c.Param("id")
+	for i, a:= range tasks{
+		if a.Id_task == id{
+			// tasks = append(task[:i], members[i+1:]...)
+			tasks = append(tasks[:i], tasks[i+1:]...)
+			c.IndentedJSON(http.StatusOK, tasks)
+			return
+		}
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "task not found"})
+	}
 }
 
 // ---------------------------
@@ -127,11 +151,11 @@ func postProjects(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newProject)
 }
 
-func getProjectbyId(c*gin.Context){
-	id:= c.Param("id")
+func getProjectbyId(c *gin.Context) {
+	id := c.Param("id")
 
-	for _,a := range projects{
-		if a.Id_project == id{
+	for _, a := range projects {
+		if a.Id_project == id {
 			c.IndentedJSON(http.StatusOK, a)
 			return
 		}
@@ -139,6 +163,19 @@ func getProjectbyId(c*gin.Context){
 	c.IndentedJSON(http.StatusNotFound, gin.H{
 		"message": "project not found",
 	})
+}
+
+func deleteProjectbyId(c *gin.Context)  {
+	id:=c.Param("id")
+	for i, a:= range projects{
+		if a.Id_project == id{
+			// tasks = append(task[:i], members[i+1:]...)
+			projects = append(projects[:i], projects[i+1:]...)
+			c.IndentedJSON(http.StatusOK, projects)
+			return
+		}
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "project not found"})
+	}
 }
 
 // ---------------------------
@@ -176,6 +213,9 @@ func main() {
 	server.POST("/post/task", postTask)
 	server.POST("/post/projects", postProjects)
 
+	server.DELETE("/delete/members/:id", deleteMembersbyId)
+	server.DELETE("/delete/tasks/:id", deleteTaskbyId)
+	server.DELETE("/delete/project/:id", deleteProjectbyId)
 	/*
 
 		GET    = used to retrieve data from the server, read-only method.
