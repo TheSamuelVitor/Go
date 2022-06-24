@@ -7,12 +7,6 @@ import (
 )
 
 // Definition of a type structure
-type album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
-}
 
 type member struct {
 	Id_member   string `json:"id_member"`
@@ -24,6 +18,7 @@ type task struct {
 	Id_task   string `json: "id_task"`
 	Name_task string `json: "name_task"`
 	Time      string `json: "time"`
+	Id_member string `json: "id_member"`
 }
 
 type project struct {
@@ -38,8 +33,8 @@ var members = []member{
 }
 
 var tasks = []task{
-	{Id_task: "1", Name_task: "Aprender GET", Time: "Thursday"},
-	{Id_task: "2", Name_task: "Aprender POST", Time: "Friday"},
+	{Id_task: "1", Name_task: "Aprender GET", Time: "Thursday", Id_member: "1"},
+	{Id_task: "2", Name_task: "Aprender POST", Time: "Friday", Id_member: "1"},
 }
 
 var projects = []project{
@@ -192,6 +187,11 @@ func bemvindo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, welcome)
 }
 
+
+// func getTaskbyMember()  {
+	
+// }
+
 // ---------------------------
 // 		FUNCAO PRINCIPAL
 // ---------------------------
@@ -206,7 +206,7 @@ func main() {
 	server.GET("/get/projects", getProjects)
 
 	server.GET("/get/members/:id", getmembersbyId)
-	server.GET("get/task/:id", getTaskbyId)
+	server.GET("/get/task/:id", getTaskbyId)
 	server.GET("/get/projects/:id", getProjectbyId)
 
 	server.POST("/post/members", postmembers)
@@ -216,6 +216,7 @@ func main() {
 	server.DELETE("/delete/members/:id", deleteMembersbyId)
 	server.DELETE("/delete/tasks/:id", deleteTaskbyId)
 	server.DELETE("/delete/project/:id", deleteProjectbyId)
+
 	/*
 
 		GET    = used to retrieve data from the server, read-only method.
