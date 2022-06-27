@@ -119,7 +119,6 @@ func deleteTaskbyId(c *gin.Context)  {
 	id:=c.Param("id")
 	for i, a:= range tasks{
 		if a.Id_task == id{
-			// tasks = append(task[:i], members[i+1:]...)
 			tasks = append(tasks[:i], tasks[i+1:]...)
 			c.IndentedJSON(http.StatusOK, tasks)
 			return
@@ -164,7 +163,6 @@ func deleteProjectbyId(c *gin.Context)  {
 	id:=c.Param("id")
 	for i, a:= range projects{
 		if a.Id_project == id{
-			// tasks = append(task[:i], members[i+1:]...)
 			projects = append(projects[:i], projects[i+1:]...)
 			c.IndentedJSON(http.StatusOK, projects)
 			return
