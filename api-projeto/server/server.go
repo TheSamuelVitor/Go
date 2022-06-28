@@ -12,6 +12,13 @@ type member struct {
 	Id_member   string `json:"id_member"`
 	Name_member string `json:"name_member"`
 	Age         string `json: "age"`
+	Team string `json: "name_team"`
+}
+
+type team struct {
+	Id_team string `json: "id_task"`
+	Name_team string `json: "name_team"`
+	task string `json: "id_task"`
 }
 
 type task struct {
@@ -24,12 +31,17 @@ type task struct {
 type project struct {
 	Id_project   string `json: "id_project"`
 	Name_project string `json: "name_project"`
-	Tasks        string `json: tasks`
+	Tasks        string `json: "id_task"`
 }
 
 var members = []member{
-	{Id_member: "1", Name_member: "Samuel Vitor", Age: "21"},
-	{Id_member: "2", Name_member: "Dayanne", Age: "21"},
+	{Id_member: "1", Name_member: "Samuel Vitor", Age: "21", Team: "Komanda"},
+	{Id_member: "2", Name_member: "Dayanne", Age: "21", Team: "Komanda"},
+}
+
+var teams = []team {
+	{Id_team: "1", Name_team:  "Komanda", task: "Aprender GET"},
+	{Id_team: "2", Name_team:  "DevsKariri", task: "Aprender POST"},
 }
 
 var tasks = []task{
@@ -42,21 +54,11 @@ var projects = []project{
 }
 
 // ---------------------------
-// 		FUNCOES DOS TIMES
+// 	  FUNCOES DOS MEMBROS
 // ---------------------------
+
 func getmembers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, members)
-}
-
-func postmembers(c *gin.Context) {
-	var newMember member
-
-	if err := c.BindJSON(&newMember); err != nil {
-		return
-	}
-
-	members = append(members, newMember)
-	c.IndentedJSON(http.StatusCreated, newMember)
 }
 
 func getmembersbyId(c *gin.Context) {
@@ -71,10 +73,27 @@ func getmembersbyId(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "member not found"})
 }
 
-func deleteMembersbyId(c *gin.Context)  {
-	id:=c.Param("id")
-	for i, a:= range members{
-		if a.Id_member == id{
+func postmembers(c *gin.Context) {
+	var newMember member
+
+	if err := c.BindJSON(&newMember); err != nil {
+		return
+	}
+
+	members = append(members, newMember)
+	c.IndentedJSON(http.StatusCreated, newMember)
+}
+
+func putMembers (c*gin.Context) {
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"message": "putMembers",
+	})
+}
+
+func deleteMembersbyId(c *gin.Context) {
+	id := c.Param("id")
+	for i, a := range members {
+		if a.Id_member == id {
 			members = append(members[:i], members[i+1:]...)
 			c.IndentedJSON(http.StatusOK, members)
 			return
@@ -83,23 +102,41 @@ func deleteMembersbyId(c *gin.Context)  {
 	}
 }
 
+
+// ---------------------------
+// 		FUNCOES TEAMS
+// ---------------------------
+
+func getTeams(c * gin.Context)  {
+	c.IndentedJSON(http.StatusOK, teams)
+}
+
+func getTeambyId(c * gin.Context)  {
+	id := c.Param("id")
+	for _, a := range teams {
+		if a.Id_team == id {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{
+		"message":  "team not found",
+	})
+}
+
+func postTeam()  {
+	var newTeam team
+
+	
+	
+}
+
 // ---------------------------
 // 		FUNCOES TASKS
 // ---------------------------
 
 func getTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, tasks)
-}
-
-func postTask(c *gin.Context) {
-	var newTask task
-
-	if err := c.BindJSON(&newTask); err != nil {
-		return
-	}
-
-	tasks = append(tasks, newTask)
-	c.IndentedJSON(http.StatusCreated, newTask)
 }
 
 func getTaskbyId(c *gin.Context) {
@@ -115,10 +152,28 @@ func getTaskbyId(c *gin.Context) {
 	})
 }
 
-func deleteTaskbyId(c *gin.Context)  {
-	id:=c.Param("id")
-	for i, a:= range tasks{
-		if a.Id_task == id{
+func postTask(c *gin.Context) {
+	var newTask task
+
+	if err := c.BindJSON(&newTask); err != nil {
+		return
+	}
+
+	tasks = append(tasks, newTask)
+	c.IndentedJSON(http.StatusCreated, newTask)
+}
+
+func putTask(c* gin.Context)  {
+	c.IndentedJSON(
+		http.StatusOK, gin.H{
+			"message": "put task",
+	})
+}
+
+func deleteTaskbyId(c *gin.Context) {
+	id := c.Param("id")
+	for i, a := range tasks {
+		if a.Id_task == id {
 			tasks = append(tasks[:i], tasks[i+1:]...)
 			c.IndentedJSON(http.StatusOK, tasks)
 			return
@@ -145,6 +200,12 @@ func postProjects(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newProject)
 }
 
+func putProjects(c* gin.Context)  {
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"message": "put Projects",
+	})
+}
+
 func getProjectbyId(c *gin.Context) {
 	id := c.Param("id")
 
@@ -159,10 +220,10 @@ func getProjectbyId(c *gin.Context) {
 	})
 }
 
-func deleteProjectbyId(c *gin.Context)  {
-	id:=c.Param("id")
-	for i, a:= range projects{
-		if a.Id_project == id{
+func deleteProjectbyId(c *gin.Context) {
+	id := c.Param("id")
+	for i, a := range projects {
+		if a.Id_project == id {
 			projects = append(projects[:i], projects[i+1:]...)
 			c.IndentedJSON(http.StatusOK, projects)
 			return
@@ -179,15 +240,30 @@ var welcome = []string{
 	"",
 	"Bem vindo",
 	"",
+	"--- ROTAS --- ",
+	"GET    /",
+	"GET    /members",
+	"GET    /task",
+	"GET    /projects",
+	"GET    /members/:id",
+	"GET    /task/:id",
+	"GET    /projects/:id",
+	"",
+	"POST   /members",
+	"POST   /task",
+	"POST   /projects",
+	"",
+	"DELETE /members/:id",
+	"DELETE /tasks/:id",
+	"DELETE /project/:id",
 }
 
 func bemvindo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, welcome)
 }
 
-
 // func getTaskbyMember()  {
-	
+
 // }
 
 // ---------------------------
@@ -199,21 +275,27 @@ func main() {
 
 	server.GET("/", bemvindo)
 
-	server.GET("/get/members", getmembers)
-	server.GET("/get/task", getTask)
-	server.GET("/get/projects", getProjects)
+	server.GET("/members", getmembers)
+	server.GET("/teams", getTeams)
+	server.GET("/tasks", getTask)
+	server.GET("/projects", getProjects)
 
-	server.GET("/get/members/:id", getmembersbyId)
-	server.GET("/get/task/:id", getTaskbyId)
-	server.GET("/get/projects/:id", getProjectbyId)
+	server.GET("/members/:id", getmembersbyId)
+	server.GET("/teams/:id", getTeambyId)
+	server.GET("/tasks/:id", getTaskbyId)
+	server.GET("/projects/:id", getProjectbyId)
 
-	server.POST("/post/members", postmembers)
-	server.POST("/post/task", postTask)
-	server.POST("/post/projects", postProjects)
+	server.POST("/members", postmembers)
+	server.POST("/tasks", postTask)
+	server.POST("/projects", postProjects)
 
-	server.DELETE("/delete/members/:id", deleteMembersbyId)
-	server.DELETE("/delete/tasks/:id", deleteTaskbyId)
-	server.DELETE("/delete/project/:id", deleteProjectbyId)
+	server.PUT("/members", putMembers)
+	server.PUT("/tasks", putTask)
+	server.PUT("/projects", putProjects)
+
+	server.DELETE("/members/:id", deleteMembersbyId)
+	server.DELETE("/tasks/:id", deleteTaskbyId)
+	server.DELETE("/projects/:id", deleteProjectbyId)
 
 	/*
 
