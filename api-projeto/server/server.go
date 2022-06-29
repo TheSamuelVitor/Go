@@ -124,12 +124,6 @@ func getTeambyId(c * gin.Context)  {
 	})
 }
 
-func postTeam()  {
-	var newTeam team
-
-	
-	
-}
 
 // ---------------------------
 // 		FUNCOES TASKS
