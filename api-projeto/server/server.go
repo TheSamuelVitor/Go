@@ -1,9 +1,11 @@
- package main
+package main
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	_ "github.com/lib/pq"
 )
 
 // Definition of a type structure
@@ -12,19 +14,19 @@ type member struct {
 	Id_member   string `json:"id_member"`
 	Name_member string `json:"name_member"`
 	Age         string `json: "age"`
-	Team string `json: "name_team"`
+	Team        string `json: "name_team"`
 }
 
 type team struct {
-	Id_team string `json: "id_task"`
+	Id_team   string `json: "id_task"`
 	Name_team string `json: "name_team"`
-	task string `json: "id_task"`
+	task      string `json: "id_task"`
 }
 
 type task struct {
 	Id_task   string `json: "id_task"`
 	Name_task string `json: "name_task"`
-	Time      string `json: "time"`
+	Time      string `json: "id_time"`
 	Id_member string `json: "id_member"`
 }
 
@@ -39,9 +41,9 @@ var members = []member{
 	{Id_member: "2", Name_member: "Dayanne", Age: "21", Team: "Komanda"},
 }
 
-var teams = []team {
-	{Id_team: "1", Name_team:  "Komanda", task: "Aprender GET"},
-	{Id_team: "2", Name_team:  "DevsKariri", task: "Aprender POST"},
+var teams = []team{
+	{Id_team: "1", Name_team: "Komanda", task: "Aprender GET"},
+	{Id_team: "2", Name_team: "DevsKariri", task: "Aprender POST"},
 }
 
 var tasks = []task{
@@ -84,7 +86,7 @@ func postmembers(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newMember)
 }
 
-func putMembers (c*gin.Context) {
+func putMembers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"message": "putMembers",
 	})
@@ -102,16 +104,15 @@ func deleteMembersbyId(c *gin.Context) {
 	}
 }
 
-
 // ---------------------------
 // 		FUNCOES TEAMS
 // ---------------------------
 
-func getTeams(c * gin.Context)  {
+func getTeams(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, teams)
 }
 
-func getTeambyId(c * gin.Context)  {
+func getTeambyId(c *gin.Context) {
 	id := c.Param("id")
 	for _, a := range teams {
 		if a.Id_team == id {
@@ -120,10 +121,9 @@ func getTeambyId(c * gin.Context)  {
 		}
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{
-		"message":  "team not found",
+		"message": "team not found",
 	})
 }
-
 
 // ---------------------------
 // 		FUNCOES TASKS
@@ -157,11 +157,11 @@ func postTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newTask)
 }
 
-func putTask(c* gin.Context)  {
+func putTask(c *gin.Context) {
 	c.IndentedJSON(
 		http.StatusOK, gin.H{
 			"message": "put task",
-	})
+		})
 }
 
 func deleteTaskbyId(c *gin.Context) {
@@ -194,7 +194,7 @@ func postProjects(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newProject)
 }
 
-func putProjects(c* gin.Context)  {
+func putProjects(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"message": "put Projects",
 	})
