@@ -4,55 +4,48 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	_ "github.com/lib/pq"
 )
-
-// Definition of a type structure
 
 type member struct {
 	Id_member   string `json:"id_member"`
 	Name_member string `json:"name_member"`
-	Age         string `json: "age"`
 	Team        string `json: "name_team"`
 }
 
 type team struct {
 	Id_team   string `json: "id_task"`
 	Name_team string `json: "name_team"`
-	task      string `json: "id_task"`
 }
 
 type task struct {
-	Id_task   string `json: "id_task"`
-	Name_task string `json: "name_task"`
-	Time      string `json: "id_time"`
-	Id_member string `json: "id_member"`
+	Id_task    string `json: "id_task"`
+	Name_task  string `json: "name_task"`
+	Id_member  string `json: "id_member"`
+	Id_project string `json: id_project`
 }
 
 type project struct {
 	Id_project   string `json: "id_project"`
 	Name_project string `json: "name_project"`
-	Tasks        string `json: "id_task"`
 }
 
 var members = []member{
-	{Id_member: "1", Name_member: "Samuel Vitor", Age: "21", Team: "Komanda"},
-	{Id_member: "2", Name_member: "Dayanne", Age: "21", Team: "Komanda"},
+	{Id_member: "1", Name_member: "Samuel Vitor", Team: "Komanda"},
+	{Id_member: "2", Name_member: "Dayanne", Team: "Komanda"},
 }
 
 var teams = []team{
-	{Id_team: "1", Name_team: "Komanda", task: "Aprender GET"},
-	{Id_team: "2", Name_team: "DevsKariri", task: "Aprender POST"},
+	{Id_team: "1", Name_team: "Komanda"},
+	{Id_team: "2", Name_team: "DevsKariri"},
 }
 
 var tasks = []task{
-	{Id_task: "1", Name_task: "Aprender GET", Time: "Thursday", Id_member: "1"},
-	{Id_task: "2", Name_task: "Aprender POST", Time: "Friday", Id_member: "1"},
+	{Id_task: "1", Name_task: "Aprender GET", Id_member: "1", Id_project: "1"},
+	{Id_task: "2", Name_task: "Aprender POST", Id_member: "1", Id_project: "1"},
 }
 
 var projects = []project{
-	{Id_project: "1", Name_project: "Fazer API", Tasks: "1 e 2"},
+	{Id_project: "1", Name_project: "Fazer API"},
 }
 
 // ---------------------------
@@ -87,9 +80,14 @@ func postmembers(c *gin.Context) {
 }
 
 func putMembers(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{
-		"message": "putMembers",
-	})
+	id := c.Param("id")
+	for i := range members {
+		if members[i].Id_member == id {
+			c.BindJSON(&members[i])
+			c.IndentedJSON(http.StatusOK, members[i])
+			return
+		}
+	}
 }
 
 func deleteMembersbyId(c *gin.Context) {
@@ -125,6 +123,40 @@ func getTeambyId(c *gin.Context) {
 	})
 }
 
+func postTeam(c *gin.Context) {
+	var newTeam team
+
+	if err := c.BindJSON(&newTeam); err != nil {
+		return
+	}
+
+	teams = append(teams, newTeam)
+	c.IndentedJSON(http.StatusCreated, newTeam)
+}
+
+func putTeam(c *gin.Context) {
+	id := c.Param("id")
+	for i := range teams {
+		if teams[i].Id_team == id {
+			c.BindJSON(&teams[i])
+			c.IndentedJSON(http.StatusOK, teams[i])
+			return
+		}
+	}
+}
+
+func deleteTeambyId(c *gin.Context) {
+	id := c.Param("id")
+	for i, a := range teams {
+		if a.Id_team == id {
+			teams = append(teams[:i], teams[i+1:]...)
+			c.IndentedJSON(http.StatusOK, teams)
+			return
+		}
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "team not found"})
+	}
+}
+
 // ---------------------------
 // 		FUNCOES TASKS
 // ---------------------------
@@ -158,10 +190,14 @@ func postTask(c *gin.Context) {
 }
 
 func putTask(c *gin.Context) {
-	c.IndentedJSON(
-		http.StatusOK, gin.H{
-			"message": "put task",
-		})
+	id := c.Param("id")
+	for i := range tasks {
+		if tasks[i].Id_task == id {
+			c.BindJSON(&tasks[i])
+			c.IndentedJSON(http.StatusOK, tasks[i])
+			return
+		}
+	}
 }
 
 func deleteTaskbyId(c *gin.Context) {
@@ -195,9 +231,14 @@ func postProjects(c *gin.Context) {
 }
 
 func putProjects(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{
-		"message": "put Projects",
-	})
+	id := c.Param("id")
+	for i := range projects {
+		if projects[i].Id_project == id {
+			c.BindJSON(&projects[i])
+			c.IndentedJSON(http.StatusOK, projects[i])
+			return
+		}
+	}
 }
 
 func getProjectbyId(c *gin.Context) {
@@ -231,34 +272,43 @@ func deleteProjectbyId(c *gin.Context) {
 // ---------------------------
 
 var welcome = []string{
+	" ------------------- ",
+	"   POSSIBLE ROUTES   ",
+	" ------------------- ",
 	"",
-	"Bem vindo",
+	" -- GET --",
+	" GET - /",
+	" GET - /members",
+	" GET - /teams",
+	" GET - /tasks",
+	" GET - /projects",
+	" GET - /members/:id",
+	" GET - /teams/:id",
+	" GET - /tasks/:id",
+	" GET - /projects/:id",
 	"",
-	"--- ROTAS --- ",
-	"GET    /",
-	"GET    /members",
-	"GET    /task",
-	"GET    /projects",
-	"GET    /members/:id",
-	"GET    /task/:id",
-	"GET    /projects/:id",
+	" -- POST --",
+	" POST - /members",
+	" POST - /tasks",
+	" POST - /teams",
+	" POST - /projects",
 	"",
-	"POST   /members",
-	"POST   /task",
-	"POST   /projects",
+	" -- PUT --",
+	" PUT - /members/:id",
+	" PUT - /teams/:id",
+	" PUT - /tasks/:id",
+	" PUT - /projects/:id",
 	"",
-	"DELETE /members/:id",
-	"DELETE /tasks/:id",
-	"DELETE /project/:id",
+	" -- DELETE --",
+	" DELETE - /members/:id",
+	" DELETE - /tasks/:id",
+	" DELETE - /teams/:id",
+	" DELETE - /projects/:id",
 }
 
 func bemvindo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, welcome)
 }
-
-// func getTaskbyMember()  {
-
-// }
 
 // ---------------------------
 // 		FUNCAO PRINCIPAL
@@ -281,14 +331,17 @@ func main() {
 
 	server.POST("/members", postmembers)
 	server.POST("/tasks", postTask)
+	server.POST("/teams", postTeam)
 	server.POST("/projects", postProjects)
 
-	server.PUT("/members", putMembers)
-	server.PUT("/tasks", putTask)
-	server.PUT("/projects", putProjects)
+	server.PUT("/members/:id", putMembers)
+	server.PUT("/teams/:id", putTeam)
+	server.PUT("/tasks/:id", putTask)
+	server.PUT("/projects/:id", putProjects)
 
 	server.DELETE("/members/:id", deleteMembersbyId)
 	server.DELETE("/tasks/:id", deleteTaskbyId)
+	server.DELETE("teams/:id", deleteTeambyId)
 	server.DELETE("/projects/:id", deleteProjectbyId)
 
 	/*
@@ -297,7 +350,7 @@ func main() {
 		POST   = used to send data to the server, associate with an ID, used to create new data entry.
 		PUT    = used to update a existing resource.
 		DELETE = used to delete a resource specified in the URL.
-
+		
 		server.GET("/someGet", getting)
 		server.POST("/somePost", posting)
 		server.PUT("/somePut", putting)
