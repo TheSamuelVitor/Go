@@ -1,15 +1,45 @@
 package main
 
 import (
-	"net/http"
 	"database/sql"
+	// "fmt"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
-	_"github.com/lib/pq"
+	_ "github.com/lib/pq"
+
+	// "gorm.io/gorm"
+	// "gorm.io/driver/sqlite"
 )
 
+
+// connection with the database
 var db *sql.DB
 var err error
+
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "postgres"
+	password = "sysadmin"
+	dbname   = "api"
+)
+
+func openBD() {
+	type project struct {
+		Id_project   string `json:"id_project"`
+		Name_project string `json:"name_project"`
+	}
+	
+	CheckError(err)
+	defer db.Close()
+}
+
+func CheckError(err error){
+	if err != nil {
+		panic(err)
+	}
+}
 
 type member struct {
 	Id_member   string `json:"id_member"`
@@ -56,6 +86,10 @@ var projects = []project{
 // ---------------------------
 // 	  GENERAL GETS FUNCTIONS
 // ---------------------------
+
+func getMembrosPostgres(c*gin.Context) {
+	// user := 
+}
 
 func getmembers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, members)
@@ -313,37 +347,37 @@ func deleteProjectbyId(c *gin.Context) {
 // ---------------------------
 
 var welcome = []string{
-	" ------------------- ", 
-	"   POSSIBLE ROUTES   ", 
-	" ------------------- ", 
-	"", 
-	" -- GET --", 
-	" GET - /", 
-	" GET - /members", 
-	" GET - /teams", 
-	" GET - /tasks", 
-	" GET - /projects", 
-	" GET - /members/:id", 
-	" GET - /teams/:id", 
-	" GET - /tasks/:id", 
-	" GET - /projects/:id", 
-	"", 
-	" -- POST --", 
-	" POST - /members", 
-	" POST - /tasks", 
+	" ------------------- ",
+	"   POSSIBLE ROUTES   ",
+	" ------------------- ",
+	"",
+	" -- GET --",
+	" GET - /",
+	" GET - /members",
+	" GET - /teams",
+	" GET - /tasks",
+	" GET - /projects",
+	" GET - /members/:id",
+	" GET - /teams/:id",
+	" GET - /tasks/:id",
+	" GET - /projects/:id",
+	"",
+	" -- POST --",
+	" POST - /members",
+	" POST - /tasks",
 	" POST - /teams",
-	" POST - /projects", 
-	"", 
-	" -- PUT --", 
-	" PUT - /members/:id", 
-	" PUT - /teams/:id", 
-	" PUT - /tasks/:id", 
-	" PUT - /projects/:id", 
-	"", 
-	" -- DELETE --", 
-	" DELETE - /members/:id", 
-	" DELETE - /tasks/:id", 
-	" DELETE - /teams/:id", 
+	" POST - /projects",
+	"",
+	" -- PUT --",
+	" PUT - /members/:id",
+	" PUT - /teams/:id",
+	" PUT - /tasks/:id",
+	" PUT - /projects/:id",
+	"",
+	" -- DELETE --",
+	" DELETE - /members/:id",
+	" DELETE - /tasks/:id",
+	" DELETE - /teams/:id",
 	" DELETE - /projects/:id",
 }
 
@@ -364,6 +398,7 @@ func main() {
 	server.GET("/teams", getTeams)
 	server.GET("/tasks", getTask)
 	server.GET("/projects", getProjects)
+	server.GET("/memberspsql", getMembrosPostgres)
 
 	server.GET("/members/:id", getmembersbyId)
 	server.GET("/teams/:id", getTeambyId)
