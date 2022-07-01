@@ -3,32 +3,37 @@ package main
 import (
 	"database/sql"
 	"fmt"
+
+	_ "github.com/lib/pq"
 )
 
-var db *sql.DB
-var err error
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "postgres"
+	password = "sysadmin"
+	dbname   = "postgres"
+)
 
-type sandbox struct {
-	id int
-	firstName string
-	lastName string
-	Age int
+func main() {
+	psqlconn := fmt.Sprintf("host= %s port = %d user = %s password = %s dbname = %s sslmode = disable", host, port, user, password, dbname)
+
+	db, err := sql.Open("postgres", psqlconn)
+	CheckError(err)
+
+	defer db.Close()
+
+	insertStmt := `insert into "employee"("name", "empid") values('Samuel', 21)`
+	_, e := db.Exec(insertStmt)
+	CheckError(e)
+
+	insertDynStmt := `insert into "employee"("name", "empid") values($1, $2)`
+	_, e = db.Exec(insertDynStmt, "Miguel", 18)
+	CheckError(e)
 }
 
-func init()  {
-	connStr := "postgres://postgres:sysadmin@localhost/postgres?sslmode=disable"
-	db, err = sql.Open("postgres", connStr)
-
+func CheckError(err error) {
 	if err != nil {
 		panic(err)
 	}
-	if err = db.Ping(); err != nil {
-		panic(err)
-	}
-	fmt.Println("Connected to postgres")
-
-}
-
-func main() {
-	
 }

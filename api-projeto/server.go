@@ -2,9 +2,14 @@ package main
 
 import (
 	"net/http"
+	"database/sql"
 
 	"github.com/gin-gonic/gin"
+	_"github.com/lib/pq"
 )
+
+var db *sql.DB
+var err error
 
 type member struct {
 	Id_member   string `json:"id_member"`
@@ -49,7 +54,7 @@ var projects = []project{
 }
 
 // ---------------------------
-// 	  FUNCOES GETS GERAIS
+// 	  GENERAL GETS FUNCTIONS
 // ---------------------------
 
 func getmembers(c *gin.Context) {
@@ -69,7 +74,7 @@ func getTask(c *gin.Context) {
 }
 
 // ---------------------------
-// 	 FUNCOES GET ESPECIFICAS
+// 	 SPECIFICS GET FUNCTIONS
 // ---------------------------
 
 func getmembersbyId(c *gin.Context) {
@@ -125,7 +130,7 @@ func getProjectbyId(c *gin.Context) {
 }
 
 // -------------------------------
-//  FUNCOES GET POR OUTRO INDICE
+// 		GET FUNCTIONS BY ID
 // -------------------------------
 func getMembersbyTeamid(c *gin.Context) {
 	id := c.Param("id")
@@ -156,7 +161,7 @@ func getTasksbyProjectid(c *gin.Context) {
 }
 
 // ---------------------------
-// 	 	FUNCOES POST
+// 	 	POST FUNCTIONS
 // ---------------------------
 
 func postmembers(c *gin.Context) {
@@ -204,7 +209,7 @@ func postProjects(c *gin.Context) {
 }
 
 // ---------------------------
-// 		FUNCOES PUT
+// 		PUT FUNCTIONS
 // ---------------------------
 
 func putMembers(c *gin.Context) {
@@ -304,10 +309,43 @@ func deleteProjectbyId(c *gin.Context) {
 }
 
 // ---------------------------
-// 	 FUNCAO DA PAGINA INICIAL
+// 	 	MAIN FUNCTION
 // ---------------------------
 
-var welcome = []string{" ------------------- ", "   POSSIBLE ROUTES   ", " ------------------- ", "", " -- GET --", " GET - /", " GET - /members", " GET - /teams", " GET - /tasks", " GET - /projects", " GET - /members/:id", " GET - /teams/:id", " GET - /tasks/:id", " GET - /projects/:id", "", " -- POST --", " POST - /members", " POST - /tasks", " POST - /teams", " POST - /projects", "", " -- PUT --", " PUT - /members/:id", " PUT - /teams/:id", " PUT - /tasks/:id", " PUT - /projects/:id", "", " -- DELETE --", " DELETE - /members/:id", " DELETE - /tasks/:id", " DELETE - /teams/:id", " DELETE - /projects/:id"}
+var welcome = []string{
+	" ------------------- ", 
+	"   POSSIBLE ROUTES   ", 
+	" ------------------- ", 
+	"", 
+	" -- GET --", 
+	" GET - /", 
+	" GET - /members", 
+	" GET - /teams", 
+	" GET - /tasks", 
+	" GET - /projects", 
+	" GET - /members/:id", 
+	" GET - /teams/:id", 
+	" GET - /tasks/:id", 
+	" GET - /projects/:id", 
+	"", 
+	" -- POST --", 
+	" POST - /members", 
+	" POST - /tasks", 
+	" POST - /teams",
+	" POST - /projects", 
+	"", 
+	" -- PUT --", 
+	" PUT - /members/:id", 
+	" PUT - /teams/:id", 
+	" PUT - /tasks/:id", 
+	" PUT - /projects/:id", 
+	"", 
+	" -- DELETE --", 
+	" DELETE - /members/:id", 
+	" DELETE - /tasks/:id", 
+	" DELETE - /teams/:id", 
+	" DELETE - /projects/:id",
+}
 
 func bemvindo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, welcome)
