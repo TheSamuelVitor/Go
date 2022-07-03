@@ -21,7 +21,7 @@ func main() {
 				fmt.Printf("Odd\n")
 			}
 		} else {
-			fmt.Printf("Bye\n")
+			fmt.Printf("Bye\n ")
 		}
 	}
 }

@@ -10,7 +10,7 @@ func main()  {
 	soma := 0
 	for i:= 1; i < 5; i++{
 		soma += i
-		fmt.Println(soma)		
+		fmt.Println(soma)
 		if i % 2 == 0 {
 			fmt.Println(i)
 		}
