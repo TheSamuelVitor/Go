@@ -33,7 +33,6 @@ type task struct {
 type project struct {
 	Id_project   string `json: "id_project"`
 	Name_project string `json: "name_project"`
-	Tasks        string `json: "id_task"`
 }
 
 var members = []member{
@@ -52,7 +51,7 @@ var tasks = []task{
 }
 
 var projects = []project{
-	{Id_project: "1", Name_project: "Fazer API", Tasks: "1 e 2"},
+	{Id_project: "1", Name_project: "Fazer API"},
 }
 
 // ---------------------------
