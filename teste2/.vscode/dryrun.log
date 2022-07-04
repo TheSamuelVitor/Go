@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/brisanet/Área de Trabalho/samuel/go/Go/teste2'
+make: Leaving directory '/home/brisanet/Área de Trabalho/samuel/go/Go/teste2'
+ 
+make: *** No targets.  Stop.
+
