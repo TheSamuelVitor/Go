@@ -3,36 +3,42 @@ package main
 import (
 	"net/http"
 
-	handlers "github.com/TheSamuelVitor/Go/pkg/handlers/members"
+	"github.com/TheSamuelVitor/Go/pkg/handlers/members"
+	"github.com/TheSamuelVitor/Go/pkg/handlers/projects"
+	"github.com/TheSamuelVitor/Go/pkg/handlers/tasks"
+	"github.com/TheSamuelVitor/Go/pkg/handlers/teams"
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/lib/pq"
 )
 
-// ---------------------------
+// ----------------------------
 // 	 FUNCAO DA PAGINA INICIAL
-// ---------------------------
+// ----------------------------
 
 var welcome = []string{
 	"",
 	"Bem vindo",
 	"",
 	"--- ROTAS --- ",
-	"GET    /",
-	"GET    /members",
-	"GET    /task",
-	"GET    /projects",
-	"GET    /members/:id",
-	"GET    /task/:id",
-	"GET    /projects/:id",
+	"GET     -  /            ",
+	"GET     -  /members     ",
+	"GET     -  /members/:id ",
+	"GET     -  /teams       ",
+	"GET     -  /teams/:id   ",
+	"GET     -  /tasks       ",
+	"GET     -  /tasks/:id   ",
+	"GET     -  /projects    ",
+	"GET     -  /projects/:id",
 	"",
-	"POST   /members",
-	"POST   /task",
-	"POST   /projects",
+	"POST    -  /members     ",
+	"POST    -  /tasks       ",
+	"PUT     -  /members     ",
+	"PUT     -  /tasks       ",
 	"",
-	"DELETE /members/:id",
-	"DELETE /tasks/:id",
-	"DELETE /project/:id",
+	"DELETE  -  /members/:id ",
+	"DELETE  -  /tasks/:id   ",
+	"DELETE  -  /projects/:id",
 }
 
 func bemvindo(c *gin.Context) {
@@ -48,26 +54,26 @@ func main() {
 
 	server.GET("/", bemvindo)
 
-	server.GET("/members", handlers.Getmembers)
-	server.GET("/members/:id", handlers.GetmembersbyId)
-	server.POST("/members", handlers.Postmembers)
-	server.PUT("/members", handlers.PutMembers)
-	server.DELETE("/members/:id", handlers.DeleteMembersbyId)
+	server.GET("/members", members.Getmembers)
+	server.GET("/members/:id", members.GetmembersbyId)
+	server.POST("/members", members.Postmembers)
+	server.PUT("/members", members.PutMembers)
+	server.DELETE("/members/:id", members.DeleteMembersbyId)
 
-	server.GET("/teams", handlers.GetTeams)
-	server.GET("/teams/:id", handlers.GetTeambyId)
+	server.GET("/teams", teams.GetTeams)
+	server.GET("/teams/:id", teams.GetTeambyId)
 
-	server.GET("/tasks", handlers.GetTask)
-	server.GET("/tasks/:id", handlers.GetTaskbyId)
-	server.POST("/tasks", handlers.PostTask)
-	server.PUT("/tasks", handlers.PutTask)
-	server.DELETE("/tasks/:id", handlers.DeleteTaskbyId)
+	server.GET("/tasks", tasks.GetTask)
+	server.GET("/tasks/:id", tasks.GetTaskbyId)
+	server.POST("/tasks", tasks.PostTask)
+	server.PUT("/tasks", tasks.PutTask)
+	server.DELETE("/tasks/:id", tasks.DeleteTaskbyId)
 
-	server.GET("/projects", handlers.GetProjects)
-	server.GET("/projects/:id", handlers.GetProjectbyId)
-	server.POST("/projects", handlers.PostProjects)
-	server.PUT("/projects", handlers.PutProjects)
-	server.DELETE("/projects/:id", handlers.DeleteProjectbyId)
+	server.GET("/projects", projects.GetProjects)
+	server.GET("/projects/:id", projects.DeleteProjectbyId)
+	server.POST("/projects", projects.PostProjects)
+	server.PUT("/projects", projects.PutProjects)
+	server.DELETE("/projects/:id", projects.DeleteProjectbyId)
 
 	server.Run(":8080")
 }
