@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul  5 08:03:28 2022
+# Make data base, printed on Fri Jul 15 09:30:36 2022
 
 # Variables
 
@@ -23,9 +23,7 @@ SNAP_INSTANCE_KEY =
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-LOCAL_GIT_DIRECTORY = /usr/lib/github-desktop/resources/app/git
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7f11bd77-3336-45c8-a883-a773922ec3ab.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-20234c72-a69d-488d-b81c-a0c5617b62d7.sock
 # environment
 VSCODE_CWD = /home/brisanet
 # default
@@ -61,7 +59,7 @@ VSCODE_CODE_CACHE_PATH = /home/brisanet/.config/Code/CachedData/30d9c6cd9483b2cc
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.FZ0YO1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.6DREP1
 # default
 .LOADED := 
 # default
@@ -74,6 +72,8 @@ CURDIR := /home/brisanet/Área de Trabalho/samuel/go/Go
 VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -99,13 +99,15 @@ SNAP_REEXEC =
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 9035
+VSCODE_PID = 30599
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/brisanet-OptiPlex-5090:@/tmp/.ICE-unix/1849,unix/brisanet-OptiPlex-5090:/tmp/.ICE-unix/1849
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+# environment
+SESSION_MANAGER = local/brisanet-OptiPlex-5090:@/tmp/.ICE-unix/1780,unix/brisanet-OptiPlex-5090:/tmp/.ICE-unix/1780
 # automatic
 *F = $(notdir $*)
 # environment
@@ -132,6 +134,8 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 SHLVL = 0
 # environment
 MAKELEVEL := 0
+# environment
+IM_CONFIG_CHECK_ENV = 1
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
@@ -149,7 +153,7 @@ SNAP_USER_COMMON = /home/brisanet/snap/code/common
 # environment
 SNAP = /snap/code/99
 # environment
-INVOCATION_ID = 1b068177f3334bd3a559e57cd7a9eec9
+INVOCATION_ID = 7dc1dceb1b4e42cfb4cbb2fea07c097e
 # environment
 SNAP_REVISION = 99
 # environment
@@ -160,28 +164,32 @@ VSCODE_LOG_NATIVE = false
 USERNAME = brisanet
 # environment
 GNOME_SETUP_DISPLAY = :1
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
 ?F = $(notdir $?)
 # environment
 XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = 
 # automatic
 +F = $(notdir $+)
 # environment
 DESKTOP_SESSION = ubuntu
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = Unity
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
 LOGNAME = brisanet
 # environment
-GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/github-desktop.desktop
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 1867
+SYSTEMD_EXEC_PID = 1799
 # environment
 DISPLAY = :0
 # environment
@@ -197,15 +205,17 @@ SNAP_DATA = /var/snap/code/99
 # environment
 SNAP_CONTEXT = iu3MAV2Chtz64BoQQRRHpncAmH-ufJUfBG9atDHKR5hQI8VJshx6
 # environment
-MANAGERPID = 1698
+MANAGERPID = 1624
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 5630
+GIO_LAUNCHED_DESKTOP_FILE_PID = 30548
+# environment
+_ = /snap/code/99/usr/share/code/code
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/brisanet/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:34133
+JOURNAL_STREAM = 8:29500
 # environment
 GOMODCACHE = /home/brisanet/go/pkg/mod
 # environment
@@ -253,7 +263,7 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=121/1024=12%, Rehash=0, Collisions=5/148=3%
+# Load=126/1024=12%, Rehash=0, Collisions=5/153=3%
 
 # Pattern-specific Variable Values
 
@@ -272,6 +282,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # Files
 
 # Not a target:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 Makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -294,9 +307,6 @@ all:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
@@ -322,6 +332,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Tue Jul  5 08:03:28 2022
+# Finished Make data base on Fri Jul 15 09:30:36 2022
 
  
