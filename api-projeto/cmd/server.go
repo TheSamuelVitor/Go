@@ -2,6 +2,11 @@ package main
 
 import (
 	"net/http"
+
+	"github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/handlers/members"
+	"github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/handlers/projects"
+	"github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/handlers/tasks"
+	"github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/handlers/teams"
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/lib/pq"
@@ -46,26 +51,26 @@ func main() {
 
 	server.GET("/", bemvindo)
 
-	server.GET("/members", handlers.Getmembers)
-	server.GET("/members/:id", handlers.GetmembersbyId)
-	server.POST("/members", handlers.Postmembers)
-	server.PUT("/members", handlers.PutMembers)
-	server.DELETE("/members/:id", handlers.DeleteMembersbyId)
+	server.GET("/members", members.Getmembers)
+	server.GET("/members/:id", members.GetmembersbyId)
+	server.POST("/members", members.Postmembers)
+	server.PUT("/members", members.PutMembers)
+	server.DELETE("/members/:id", members.DeleteMembersbyId)
 
-	server.GET("/teams", handlers.GetTeams)
-	server.GET("/teams/:id", handlers.GetTeambyId)
+	server.GET("/teams", teams.GetTeams)
+	server.GET("/teams/:id", teams.GetTeambyId)
 
-	server.GET("/tasks", handlers.GetTask)
-	server.GET("/tasks/:id", handlers.GetTaskbyId)
-	server.POST("/tasks", handlers.PostTask)
-	server.PUT("/tasks", handlers.PutTask)
-	server.DELETE("/tasks/:id", handlers.DeleteTaskbyId)
+	server.GET("/tasks", tasks.GetTask)
+	server.GET("/tasks/:id", tasks.GetTaskbyId)
+	server.POST("/tasks", tasks.PostTask)
+	server.PUT("/tasks", tasks.PutTask)
+	server.DELETE("/tasks/:id", tasks.DeleteTaskbyId)
 
-	server.GET("/projects", handlers.GetProjects)
-	server.GET("/projects/:id", handlers.GetProjectbyId)
-	server.POST("/projects", handlers.PostProjects)
-	server.PUT("/projects", handlers.PutProjects)
-	server.DELETE("/projects/:id", handlers.DeleteProjectbyId)
+	server.GET("/projects", projects.GetProjects)
+	server.GET("/projects/:id", projects.GetProjectbyId)
+	server.POST("/projects", projects.PostProjects)
+	server.PUT("/projects", projects.PutProjects)
+	server.DELETE("/projects/:id", projects.DeleteProjectbyId)
 
 	server.Run(":8080")
 }
