@@ -1,6 +1,7 @@
 package mocks
 
-import "github.com/TheSamuelVitor/Go/pkg/models"
+import "github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/models"
+
 
 var Tasks = []models.Task {
 	{Id_task: "1", Name_task: "Aprender GET", Time: "Thursday", Id_member: "1"},

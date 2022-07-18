@@ -1,6 +1,7 @@
 package mocks
 
-import "github.com/TheSamuelVitor/Go/pkg/models"
+import "github.com/TheSamuelVitor/Go/tree/api-projeto/pkg/models"
+
 
 var Teams = []models.Team {
 	{Id_team: "1", Name_team: "Komanda"},
