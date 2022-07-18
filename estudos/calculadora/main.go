@@ -13,12 +13,12 @@ func main()  {
 	fmt.Println("4. DIVISÃO")
 	fmt.Println(" ------------------ ")
 	fmt.Println("Escolha uma opção:")
-	fmt.Scanf("%d", &opcao)
+	fmt.Scanln("%d", &opcao)
 	fmt.Println("------------------ ")
 	if opcao == 1 {
 		fmt.Println("1. SOMA")
 		fmt.Println("------------------ ")
-		fmt.Scanf("%d %d", n1, n2)
+		fmt.Scanln("%d %d", n1, n2)
 	} else if opcao == 2 {
 		fmt.Println("2. SUBTRAÇÃO")
 		fmt.Println("------------------ ")
