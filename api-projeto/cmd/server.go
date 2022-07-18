@@ -2,8 +2,6 @@ package main
 
 import (
 	"net/http"
-
-	handlers "github.com/TheSamuelVitor/Go/pkg/handlers/members"
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/lib/pq"
