@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/brisanet/Área de Trabalho/samuel/go/Go'
-make: Leaving directory '/home/brisanet/Área de Trabalho/samuel/go/Go'
+make: Entering directory '/home/brisa/Documentos/GitHub/Go'
+make: Leaving directory '/home/brisa/Documentos/GitHub/Go'
  
 make: *** No targets specified and no makefile found.  Stop.
 
